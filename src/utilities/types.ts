@@ -5,6 +5,7 @@ export interface IColors {
   grey: string;
 }
 export interface IFontSizes {
+  h1: number;
   p: number;
 }
 export interface ImagesResponseFormat {

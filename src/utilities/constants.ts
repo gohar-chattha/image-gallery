@@ -9,6 +9,7 @@ export const theme = {
   } as IColors,
   font: {
     sizes: {
+      h1: 26,
       p: 20,
     } as IFontSizes,
   },
