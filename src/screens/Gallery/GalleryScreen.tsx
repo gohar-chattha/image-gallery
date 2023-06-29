@@ -1,4 +1,4 @@
-import {useCallback, useMemo} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,10 +6,20 @@ import {
   ListRenderItem,
   ActivityIndicator,
   FlatList,
+  Modal,
+  TouchableOpacity,
+  View,
+  Image,
 } from 'react-native';
 import {ImageTile} from '../../components/ImageTile';
+import {ModalView} from '../../components/ModalView';
 import useImages from '../../hooks/useImages';
-import {TESTIDS, theme, widthPixel as WP} from '../../utilities';
+import {
+  TESTIDS,
+  theme,
+  widthPixel as WP,
+  heightPixel as HP,
+} from '../../utilities';
 
 const GalleryScreen: React.FC = () => {
   // using react query hook to retrieve data from API via Axios api layer
@@ -17,13 +27,24 @@ const GalleryScreen: React.FC = () => {
   //Memoizing data to improve performance and avoid re-renders
   const memoizedData = useMemo(() => data?.message, [data]);
 
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   const keyExtractor = useCallback((item: string) => item, []);
   const renderItem = useCallback<ListRenderItem<string>>(
     ({item}) => {
-      return <ImageTile testId={TESTIDS.imageTile} url={item} />;
+      return (
+        <ImageTile
+          onPress={() => setSelectedImage(item)}
+          testId={TESTIDS.imageTile}
+          url={item}
+        />
+      );
     },
     [data],
   );
+  const closeModal = useCallback(() => {
+    setSelectedImage(null);
+  }, []);
   return (
     <SafeAreaView testID={TESTIDS.galleryContainer} style={styles.container}>
       {(isLoading || !data) && <ActivityIndicator />}
@@ -32,10 +53,17 @@ const GalleryScreen: React.FC = () => {
           Cannot fetch images.{'\n'}Please try again later.
         </Text>
       )}
-
+      <ModalView
+        visible={!!selectedImage}
+        imageUri={selectedImage}
+        closeModal={closeModal}
+        testId={TESTIDS.modalContainer}
+      />
       {isSuccess && (
         <>
-          <Text style={styles.title}>Dog Gallery</Text>
+          <Text testID={TESTIDS.galleryTitle} style={styles.title}>
+            Dog Gallery
+          </Text>
           <FlatList
             data={memoizedData}
             showsVerticalScrollIndicator={false}
@@ -68,6 +96,23 @@ const styles = StyleSheet.create({
   flatListContainer: {
     paddingHorizontal: WP(5),
     paddingVertical: 10,
+  },
+
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 10,
+  },
+  modalImage: {
+    width: WP(80),
+    height: HP(70),
+    resizeMode: 'contain',
   },
 });
 

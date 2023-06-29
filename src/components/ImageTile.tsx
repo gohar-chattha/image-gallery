@@ -1,14 +1,18 @@
 import {TouchableOpacity, Image, StyleSheet} from 'react-native';
 import {widthPixel as WP} from '../utilities';
 
-interface ImageTileProps {
+type ImageTileProps = {
   url: string;
+  onPress: () => void;
   testId?: string;
-}
+};
 
 export const ImageTile = (props: ImageTileProps) => {
   return (
-    <TouchableOpacity testID={props.testId} style={styles.imageContainer}>
+    <TouchableOpacity
+      onPress={props.onPress}
+      testID={props.testId}
+      style={styles.imageContainer}>
       <Image style={styles.thumbnailImage} source={{uri: props.url}} />
     </TouchableOpacity>
   );
