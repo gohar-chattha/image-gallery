@@ -7,3 +7,7 @@ export interface IColors {
 export interface IFontSizes {
   p: number;
 }
+export interface ImagesResponseFormat {
+  message: string[];
+  status: string;
+}
