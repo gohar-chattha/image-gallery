@@ -11,14 +11,14 @@ type CommentBubbleProps = {
 
 export const CommentBubble = (props: CommentBubbleProps) => {
   return (
-    <View style={styles.commentContainer}>
+    <View testID={props.testId} style={styles.commentContainer}>
       <Text style={styles.commentText}>{props.comment}</Text>
       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={props.onEdit} style={styles.iconButton}>
-          <Image source={require('../assets/edit.png')} style={styles.icon} />
+          <Image source={theme.images.edit} style={styles.icon} />
         </TouchableOpacity>
         <TouchableOpacity onPress={props.onDelete} style={styles.iconButton}>
-          <Image source={require('../assets/delete.png')} style={styles.icon} />
+          <Image source={theme.images.delete} style={styles.icon} />
         </TouchableOpacity>
       </View>
     </View>

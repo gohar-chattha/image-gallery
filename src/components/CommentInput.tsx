@@ -27,8 +27,10 @@ export const CommentInput = (props: CommentInputProps) => {
           value={props.value}
           onChangeText={props.onChangeText}
         />
-        <TouchableOpacity onPress={props.onSend}>
-          <Image source={require('../assets/send.png')} style={styles.icon} />
+        <TouchableOpacity
+          testID={TESTIDS.commentSendButton}
+          onPress={props.onSend}>
+          <Image source={theme.images.send} style={styles.icon} />
         </TouchableOpacity>
       </View>
     </>

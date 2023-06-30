@@ -3,6 +3,7 @@ export interface IColors {
   white: string;
   blue: string;
   grey: string;
+  transparent: string;
 }
 export interface IFontSizes {
   h1: number;

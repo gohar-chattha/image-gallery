@@ -42,16 +42,25 @@ export const ModalView = (props: ModalViewProps) => {
     comment => comment.url === props.imageUrl,
   )?.comments;
   const memoizedComments = useMemo(() => specificComments, [specificComments]);
-
   const [comment, setComment] = React.useState('');
   const [editingCommentId, setEditingCommentId] = React.useState(-1);
-
   const keyExtractor = useCallback((item: string) => item, []);
   const renderItem = useCallback<ListRenderItem<string>>(
     ({item, index}) => {
       return (
         <CommentBubble
-          onDelete={() => Alert.alert(`${index}`)}
+          onDelete={() => {
+            if (props.imageUrl) {
+              dispatch(
+                updateComment({
+                  url: props.imageUrl,
+                  commentId: index,
+                  actionToDo: CommentActions.delete,
+                  newComment: '',
+                }),
+              );
+            }
+          }}
           onEdit={() => {
             setEditingCommentId(index);
             setComment(item);
@@ -66,7 +75,6 @@ export const ModalView = (props: ModalViewProps) => {
   const handleCommentSend = () => {
     if (comment.trim() !== '' && props.imageUrl) {
       const newComment = comment.trim();
-
       switch (editingCommentId !== -1) {
         case true: {
           dispatch(
@@ -97,6 +105,7 @@ export const ModalView = (props: ModalViewProps) => {
         <View style={styles.modalContent}>
           <TouchableOpacity onPress={props.closeModal}>
             <Image
+              testID={TESTIDS.modalCloseButton}
               style={styles.closeIcon}
               source={require('../assets/close.png')}
             />
@@ -104,9 +113,10 @@ export const ModalView = (props: ModalViewProps) => {
           {props.imageUrl && (
             <Image style={styles.modalImage} source={{uri: props.imageUrl}} />
           )}
-          {!memoizedComments && (
-            <Text style={styles.errorMessage}>No Comments yet !</Text>
-          )}
+          {!memoizedComments ||
+            (memoizedComments.length === 0 && (
+              <Text style={styles.errorMessage}>No Comments yet !</Text>
+            ))}
           <FlatList
             data={memoizedComments}
             showsVerticalScrollIndicator={false}
@@ -119,6 +129,7 @@ export const ModalView = (props: ModalViewProps) => {
             onChangeText={setComment}
             onSend={handleCommentSend}
             placeholder="Enter comment"
+            testID={TESTIDS.commentInput}
           />
         </View>
       </View>
@@ -129,7 +140,7 @@ export const ModalView = (props: ModalViewProps) => {
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: theme.colors.transparent,
     justifyContent: 'center',
     alignItems: 'center',
   },
