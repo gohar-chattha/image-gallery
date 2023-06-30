@@ -6,10 +6,6 @@ import {
   ListRenderItem,
   ActivityIndicator,
   FlatList,
-  Modal,
-  TouchableOpacity,
-  View,
-  Image,
 } from 'react-native';
 import {ImageTile} from '../../components/ImageTile';
 import {ModalView} from '../../components/ModalView';
@@ -21,7 +17,7 @@ import {
   heightPixel as HP,
 } from '../../utilities';
 
-const GalleryScreen: React.FC = () => {
+export default function GalleryScreen() {
   // using react query hook to retrieve data from API via Axios api layer
   const {data, isLoading, isSuccess, isError} = useImages();
   //Memoizing data to improve performance and avoid re-renders
@@ -76,7 +72,7 @@ const GalleryScreen: React.FC = () => {
       )}
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -114,5 +110,3 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
 });
-
-export default GalleryScreen;
