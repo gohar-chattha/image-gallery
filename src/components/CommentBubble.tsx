@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Image, StyleSheet, Text, View} from 'react-native';
-import {theme, widthPixel as WP} from '../utilities';
+import {TESTIDS, theme, widthPixel as WP} from '../utilities';
 
 type CommentBubbleProps = {
   comment: string;
@@ -14,10 +14,16 @@ export const CommentBubble = (props: CommentBubbleProps) => {
     <View testID={props.testId} style={styles.commentContainer}>
       <Text style={styles.commentText}>{props.comment}</Text>
       <View style={styles.iconContainer}>
-        <TouchableOpacity onPress={props.onEdit} style={styles.iconButton}>
+        <TouchableOpacity
+          testID={TESTIDS.commentEditButton}
+          onPress={props.onEdit}
+          style={styles.iconButton}>
           <Image source={theme.images.edit} style={styles.icon} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={props.onDelete} style={styles.iconButton}>
+        <TouchableOpacity
+          testID={TESTIDS.commentDeleteButton}
+          onPress={props.onDelete}
+          style={styles.iconButton}>
           <Image source={theme.images.delete} style={styles.icon} />
         </TouchableOpacity>
       </View>

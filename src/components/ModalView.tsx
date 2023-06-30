@@ -23,14 +23,14 @@ import {CommentInput} from './CommentInput';
 import {useDispatch} from 'react-redux';
 import {addComment, updateComment} from '../store';
 
-type ModalViewProps = {
+export type ModalViewProps = {
   visible: boolean;
   imageUrl: string | null;
   closeModal: () => void;
   testId?: string;
 };
 
-enum CommentActions {
+export enum CommentActions {
   update = 'Update',
   delete = 'Delete',
 }
@@ -45,6 +45,7 @@ export const ModalView = (props: ModalViewProps) => {
   const [comment, setComment] = React.useState('');
   const [editingCommentId, setEditingCommentId] = React.useState(-1);
   const keyExtractor = useCallback((item: string) => item, []);
+  console.log('gohar', memoizedComments);
   const renderItem = useCallback<ListRenderItem<string>>(
     ({item, index}) => {
       return (
@@ -113,10 +114,9 @@ export const ModalView = (props: ModalViewProps) => {
           {props.imageUrl && (
             <Image style={styles.modalImage} source={{uri: props.imageUrl}} />
           )}
-          {!memoizedComments ||
-            (memoizedComments.length === 0 && (
-              <Text style={styles.errorMessage}>No Comments yet !</Text>
-            ))}
+          {(!memoizedComments || memoizedComments.length === 0) && (
+            <Text style={styles.errorMessage}>No Comments yet !</Text>
+          )}
           <FlatList
             data={memoizedComments}
             showsVerticalScrollIndicator={false}
