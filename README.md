@@ -1,6 +1,14 @@
 Following is the checklist and details of features delivered in the app.
 I have added some known improvements that can be further made to the project which could not be completed due to time constraint
 
+### Starting the project
+
+- Clone the repo
+- run "yarn" or "npm i" in project drectory
+- run "cd ios && pod install" in project drectory
+- run "npx react-native run-ios" for iOS app
+- run "npx react-native run-android" for Android app
+
 ### Tasks Completed
 
 - Project is built using React Native CLI
@@ -21,6 +29,7 @@ I have added some known improvements that can be further made to the project whi
 
 ### Known improvements areas
 
+- Splash screen and app Logo was not added due to time constraint
 - DETOX for writing e2e tests for different user journeys i.e Open image, add/delete/edit a comment on an image.
 - I covered generic scenarios that i could think of while writing unit tests on granular component level, however there might be some cases where we can write more for better coverage on
   Unit/integrations tests

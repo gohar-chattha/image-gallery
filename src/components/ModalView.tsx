@@ -45,7 +45,6 @@ export const ModalView = (props: ModalViewProps) => {
   const [comment, setComment] = React.useState('');
   const [editingCommentId, setEditingCommentId] = React.useState(-1);
   const keyExtractor = useCallback((item: string) => item, []);
-  console.log('gohar', memoizedComments);
   const renderItem = useCallback<ListRenderItem<string>>(
     ({item, index}) => {
       return (
