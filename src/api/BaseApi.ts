@@ -1,4 +1,4 @@
-import Axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
+import Axios, {AxiosResponse} from 'axios';
 import Config from 'react-native-config';
 
 const axios = Axios.create({

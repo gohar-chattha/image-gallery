@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  Platform,
 } from 'react-native';
 import React, {Dispatch, SetStateAction} from 'react';
 import {TESTIDS, theme, widthPixel as WP} from '../utilities';
@@ -42,7 +43,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: theme.colors.white,
     width: WP(80),
-    padding: 10,
+    padding: Platform.OS === 'android' ? 0 : 10,
+    paddingHorizontal: Platform.OS === 'android' ? 10 : 0,
     borderRadius: 8,
     marginTop: 10,
   },

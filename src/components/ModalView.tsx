@@ -9,6 +9,7 @@ import {
   ListRenderItem,
   Alert,
   Text,
+  Keyboard,
 } from 'react-native';
 import {
   widthPixel as WP,
@@ -70,7 +71,7 @@ export const ModalView = (props: ModalViewProps) => {
         />
       );
     },
-    [memoizedComments],
+    [dispatch, props.imageUrl],
   );
   const handleCommentSend = () => {
     if (comment.trim() !== '' && props.imageUrl) {
@@ -94,6 +95,7 @@ export const ModalView = (props: ModalViewProps) => {
       }
       setComment('');
       setEditingCommentId(-1);
+      Keyboard.dismiss();
     } else {
       Alert.alert('', 'Please enter a comment first');
     }
@@ -113,8 +115,18 @@ export const ModalView = (props: ModalViewProps) => {
           {props.imageUrl && (
             <Image style={styles.modalImage} source={{uri: props.imageUrl}} />
           )}
+          <CommentInput
+            value={comment}
+            onChangeText={setComment}
+            onSend={handleCommentSend}
+            placeholder="Enter comment"
+            testID={TESTIDS.commentInput}
+          />
           {(!memoizedComments || memoizedComments.length === 0) && (
             <Text style={styles.errorMessage}>No Comments yet !</Text>
+          )}
+          {memoizedComments && memoizedComments.length > 0 && (
+            <Text style={styles.listTitle}>Your Comments</Text>
           )}
           <FlatList
             data={memoizedComments}
@@ -122,13 +134,6 @@ export const ModalView = (props: ModalViewProps) => {
             renderItem={renderItem}
             keyExtractor={keyExtractor}
             style={styles.flatListContainer}
-          />
-          <CommentInput
-            value={comment}
-            onChangeText={setComment}
-            onSend={handleCommentSend}
-            placeholder="Enter comment"
-            testID={TESTIDS.commentInput}
           />
         </View>
       </View>
@@ -148,11 +153,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 10,
     paddingVertical: 10,
-    height: HP(85),
+    height: HP(90),
   },
   modalImage: {
     width: WP(80),
-    height: HP(50),
+    height: HP(45),
     resizeMode: 'cover',
     marginVertical: 10,
     borderRadius: 10,
@@ -163,11 +168,17 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   flatListContainer: {
-    maxHeight: HP(20),
+    maxHeight: HP(25),
+    marginTop: 10,
   },
   errorMessage: {
     textAlign: 'center',
     fontSize: theme.font.sizes.p,
+    marginVertical: 20,
+  },
+  listTitle: {
+    fontSize: theme.font.sizes.p,
+    marginTop: 20,
   },
 });
 

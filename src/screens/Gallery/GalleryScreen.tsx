@@ -26,24 +26,21 @@ export default function GalleryScreen() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const keyExtractor = useCallback((item: string) => item, []);
-  const renderItem = useCallback<ListRenderItem<string>>(
-    ({item}) => {
-      return (
-        <ImageTile
-          onPress={() => setSelectedImage(item)}
-          testId={TESTIDS.imageTile}
-          url={item}
-        />
-      );
-    },
-    [data],
-  );
+  const renderItem = useCallback<ListRenderItem<string>>(({item}) => {
+    return (
+      <ImageTile
+        onPress={() => setSelectedImage(item)}
+        testId={TESTIDS.imageTile}
+        url={item}
+      />
+    );
+  }, []);
   const closeModal = useCallback(() => {
     setSelectedImage(null);
   }, []);
   return (
     <SafeAreaView testID={TESTIDS.galleryContainer} style={styles.container}>
-      {(isLoading || !data) && <ActivityIndicator />}
+      {isLoading && <ActivityIndicator />}
       {isError && (
         <Text style={styles.errorMessage}>
           Cannot fetch images.{'\n'}Please try again later.

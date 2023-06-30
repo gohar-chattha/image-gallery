@@ -3,17 +3,18 @@ I have added some known improvements that can be further made to the project whi
 
 ### Starting the project
 
+- As project is made React Native 0.72, please make sure you have latest Node version
 - Clone the repo
 - run "yarn" or "npm i" in project drectory
 - run "cd ios && pod install" in project drectory
-- run "npx react-native run-ios" for iOS app
-- run "npx react-native run-android" for Android app
+- run "npx react-native run-ios" or "yarn ios" for iOS app
+- run "npx react-native run-android" or "yarn android" for Android app
 
 ### Tasks Completed
 
 - Project is built using React Native CLI
 - Application is connected with **Dogs REST API Layer** at `https://dog.ceo/api/breed/hound/images/ using **React Query** and **Axios** to retrieve dog images
-- Custom hook is written for API layer access
+- Custom hook is written for API layer access with Base URL defined in .env file
 - Gallery component is implemented on main screen to list down all images from API
 - Modal component is implemented on tap any image from gallery
 - Comments scrolling section is added below image in modal with vaildations
