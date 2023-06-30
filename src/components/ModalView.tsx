@@ -107,7 +107,7 @@ export const ModalView = (props: ModalViewProps) => {
             <Image
               testID={TESTIDS.modalCloseButton}
               style={styles.closeIcon}
-              source={require('../assets/close.png')}
+              source={theme.images.close}
             />
           </TouchableOpacity>
           {props.imageUrl && (
