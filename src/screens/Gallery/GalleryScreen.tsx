@@ -55,7 +55,7 @@ const GalleryScreen: React.FC = () => {
       )}
       <ModalView
         visible={!!selectedImage}
-        imageUri={selectedImage}
+        imageUrl={selectedImage}
         closeModal={closeModal}
         testId={TESTIDS.modalContainer}
       />
@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: WP(5),
     paddingVertical: 10,
   },
-
   modalContainer: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.7)',

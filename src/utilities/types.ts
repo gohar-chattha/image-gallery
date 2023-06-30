@@ -12,3 +12,7 @@ export interface ImagesResponseFormat {
   message: string[];
   status: string;
 }
+export interface CommentsFormat {
+  url: string;
+  comments: string[];
+}

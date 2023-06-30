@@ -4,9 +4,7 @@ import Config from 'react-native-config';
 const axios = Axios.create({
   baseURL: Config.BASE_URL,
 });
-const config: AxiosRequestConfig = {
-  headers: {'X-Requested-With': 'XMLHttpRequest'},
-};
+const config: AxiosRequestConfig = {};
 class Api {
   async get<O>(url: string): Promise<O> {
     const response = await axios.get<O>(url, {

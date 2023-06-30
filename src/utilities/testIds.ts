@@ -3,4 +3,5 @@ export const TESTIDS = {
   galleryContainer: 'gallery-container',
   modalContainer: 'modal-container',
   imageTile: 'image-tile',
+  commentBubble: 'comment-bubble',
 };
